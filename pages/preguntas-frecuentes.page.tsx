@@ -26,7 +26,7 @@ const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
       </Head>
 
       <BodySingle title={"Preguntas frecuentes"}>
-        {faqs.map((faq) => (
+        {faqs?.map((faq) => (
           <Accordion key={faq.id}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
