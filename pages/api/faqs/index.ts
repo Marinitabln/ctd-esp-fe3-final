@@ -8,9 +8,9 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   
-  if (req.method === "GET") {
+/*   if (req.method === "GET") { */
     res.status(200).json(faqsData);
-  } else {
+/*   } else {
     res.status(400).json({ message: "Método no permitido" });
-  }
+  } */
 }
