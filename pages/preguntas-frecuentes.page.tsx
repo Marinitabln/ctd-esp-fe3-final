@@ -6,8 +6,9 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import getFaqs from 'dh-marvel/services/faqs/getFaqs';
+
 import { FaqsType } from 'dh-marvel/components/faqs/faqsData';
+import { getFaqs } from 'dh-marvel/services/faqs/getFaqs';
 
 interface Props {
   faqs: FaqsType[]
@@ -15,7 +16,6 @@ interface Props {
 
 
 const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
-
 
   return (
     <>
@@ -27,7 +27,7 @@ const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
 
       <BodySingle title={"Preguntas frecuentes"}>
         {faqs.map((faq) => (
-          <Accordion>
+          <Accordion key={faq.id}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -47,14 +47,9 @@ const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps:GetStaticProps = async () => {
 
-  //const faqs = getFaqs()
-  const response = await fetch('dh-marvel/api/faqs')
-  const faqs = await response.json()
-
-  console.log({faqs});
-  
+  const faqs = await getFaqs()
 
   return {
     props: {
