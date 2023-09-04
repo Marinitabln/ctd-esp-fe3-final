@@ -1,4 +1,4 @@
-/* import BodySingle from 'dh-marvel/components/layouts/body/single/body-single'
+import BodySingle from 'dh-marvel/components/layouts/body/single/body-single'
 import Head from 'next/head'
 import { GetStaticProps, NextPage } from 'next/types'
 import Accordion from '@mui/material/Accordion';
@@ -55,4 +55,3 @@ export const getStaticProps:GetStaticProps = async () => {
 }
 
 export default PreguntasFrecuentes
- */
