@@ -14,9 +14,7 @@ interface Props {
   faqs: FaqsType[]
 }
 
-
 const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
-
   return (
     <>
       <Head>
@@ -48,9 +46,7 @@ const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
 }
 
 export const getStaticProps:GetStaticProps = async () => {
-
   const faqs = await getFaqs()
-
   return {
     props: {
       faqs
