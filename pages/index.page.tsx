@@ -12,7 +12,7 @@ interface Props {
 
 
 const Index: NextPage<Props> = ({ comics }) => {
-    console.log({ comics })
+   
     const comicsArray = comics.data.results
 
     return (
@@ -26,7 +26,7 @@ const Index: NextPage<Props> = ({ comics }) => {
             <BodySingle title={"Comics Marvel"}>
                 <Container maxWidth="lg">
                     <Grid container spacing={2}>
-                        {comicsArray.map((comic) => (
+                        {comicsArray?.map((comic) => (
                             <Grid item xs={12} sm={6} md={4} key={comic.id}>
                                 <ComicCard comic={comic} />
                             </Grid>
@@ -40,14 +40,11 @@ const Index: NextPage<Props> = ({ comics }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
     const comics = await getComics()
-    console.log({ comics })
     return {
         props: {
             comics
         }
     }
 }
-
-
 
 export default Index

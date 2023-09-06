@@ -26,7 +26,6 @@ export interface Comic {
   variants: any[];
   collections: Series[];
   collectedIssues: any[];
-  prices: Price[];
   thumbnail: Thumbnail;
   images: Thumbnail[];
   creators: Characters;
@@ -87,11 +86,6 @@ export interface DateElement {
 export interface Thumbnail {
   path: string;
   extension: string;
-}
-
-export interface Price {
-  type: string;
-  price: number;
 }
 
 export interface Stories {

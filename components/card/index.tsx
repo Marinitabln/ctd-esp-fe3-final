@@ -17,12 +17,11 @@ const ComicCard = ({comic}:Props)=>{
   console.log({imagen})
 
   return (
-    <Card key={comic.id} sx={{ maxWidth: 345, height: 380 }}>
+    <Card key={comic.id} sx={{ maxWidth: 345, height: 440 }}>
       <CardMedia        
-        sx={{ height: 140 }}
-       // image={comic.images[0] ? comic.images[0].path : '' }
-        image={comic?.images[0]?.path}
-        title={comic.title}
+        sx={{ height: 200 }}
+       image={comic.images[0] ? `${comic?.images[0]?.path}.${comic?.images[0]?.extension}`: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' }
+       title={comic.title}
       />
       <CardContent  sx={{ height: 160 }}>
         <Typography gutterBottom variant="h5" component="div">
