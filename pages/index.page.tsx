@@ -27,7 +27,7 @@ const Index: NextPage<Props> = ({ comics }) => {
                 <Container maxWidth="lg">
                     <Grid container spacing={2}>
                         {comicsArray.map((comic) => (
-                            <Grid item xs={12} sm={6} md={4}>
+                            <Grid item xs={12} sm={6} md={4} key={comic.id}>
                                 <ComicCard comic={comic} />
                             </Grid>
                         ))}
