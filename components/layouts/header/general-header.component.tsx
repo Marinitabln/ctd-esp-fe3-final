@@ -6,12 +6,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import NextLink from 'next/link'
 import {Link as MUILink} from '@mui/material';
+import { useRouter } from 'next/router';
 
 type Props = {
     variant?: "simple" | "general"
 }
 
 const Header: FC<Props> = ({variant}: Props) => {
+
+    const {asPath} = useRouter()
+
     return <Container maxWidth="xl">
         <Toolbar disableGutters>
             <NextLink href="/" passHref>
@@ -23,7 +27,7 @@ const Header: FC<Props> = ({variant}: Props) => {
                     textDecoration: 'none',
                 }}> DH-Marvel</MUILink>
             </NextLink>
-            {variant == 'general' &&
+            {variant == 'general' &&  asPath !== "/preguntas-frecuentes" && 
                 <Box>
                     <NextLink href="/preguntas-frecuentes" passHref>
                         <MUILink variant="body2" sx={{color: 'white', fontSize: 18, fontWeight: 600}}>FAQ</MUILink>
