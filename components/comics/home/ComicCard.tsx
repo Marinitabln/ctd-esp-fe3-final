@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,10 +11,9 @@ interface Props {
 comic: Comic,
 }
 
-const ComicCard = ({comic}:Props)=>{
+const ComicCard: FC<Props>  = ({comic})=>{
 
   const imagen = comic?.images[0]?.path
-  console.log({imagen})
 
   return (
     <Card key={comic.id} sx={{ maxWidth: 345, height: 440 }}>
@@ -29,8 +28,8 @@ const ComicCard = ({comic}:Props)=>{
         </Typography>
       </CardContent>
       <CardActions style={{ display:'flex', justifyContent:'space-between', margin:'0 20px'}}>
-        <Button variant='outlined' size="medium">Ver detalle</Button>
-        <Button variant='contained' size="medium">Comprar</Button>
+        <Button variant='outlined' size="medium" href={`/comics/${comic.id}`}>Ver detalle</Button>
+        <Button variant='contained' size="medium" href={`/checkout/${comic.id}`}>Comprar</Button>
       </CardActions>
     </Card>
   );

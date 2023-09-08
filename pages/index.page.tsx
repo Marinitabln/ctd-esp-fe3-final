@@ -1,21 +1,43 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import ComicCard from 'dh-marvel/components/card';
-import { getComics } from 'dh-marvel/services/marvel/marvel.service';
-import { Comics } from 'interfaces/comic';
-import { Grid, Container } from '@mui/material';
+import { getComics} from 'dh-marvel/services/marvel/marvel.service';
+import { Comics, Comic } from 'interfaces/comic';
+import { Container, Pagination, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import ComicsGrid from 'dh-marvel/components/comics/home/ComicsGrid';
 
 interface Props {
-    comics: Comics,
+    comics: Comics
 }
 
+const itemsPerPage = 12;
 
 const Index: NextPage<Props> = ({ comics }) => {
-   
-    const comicsArray = comics.data.results
 
-    return (
+
+    const comicsTotal = comics?.data.total
+    const router = useRouter();
+    const [currentPage, setCurrentPage] = useState<number | null>(1);
+
+    const [noOfPages] = useState(Math.ceil(comicsTotal / itemsPerPage));
+   
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value);
+    };
+
+    useEffect(() => {
+        localStorage.clear();
+    }, []);
+
+    useEffect(() => {
+        if (currentPage !== null) {
+            router.push(`/?page=${currentPage}`);
+        }
+    }, [currentPage]);
+
+      return (
         <>
             <Head>
                 <title>DH Marvel</title>
@@ -24,27 +46,46 @@ const Index: NextPage<Props> = ({ comics }) => {
             </Head>
 
             <BodySingle title={"Comics Marvel"}>
-                <Container maxWidth="lg">
-                    <Grid container spacing={2}>
-                        {comicsArray?.map((comic) => (
-                            <Grid item xs={12} sm={6} md={4} key={comic.id}>
-                                <ComicCard comic={comic} />
-                            </Grid>
-                        ))}
-                    </Grid>
+                <Container maxWidth="lg" sx={{ marginTop: '20px', marginBottom: '50px' }}>
+                    <ComicsGrid comics={comics} />
+                    <Box component="span">
+                        <Pagination
+                            count={noOfPages}
+                            page={currentPage ? currentPage : 1}
+                            onChange={handleChange}
+                            defaultPage={1}
+                            showFirstButton
+                            showLastButton
+                            sx={{ margin: '20px' }}
+                        />
+                    </Box>
                 </Container>
             </BodySingle>
         </>
     )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-    const comics = await getComics()
+
+export const getServerSideProps: GetServerSideProps = async ({query, res}) => {
+
+   const {page} = query 
+   // console.log({page});
+    
+    const offset = itemsPerPage * Number(page) - itemsPerPage 
+    const comics = await getComics(offset, itemsPerPage)
+   // console.log({ comics });
+
+  res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=10, stale-while-revalidate=59'
+      )
+     
     return {
         props: {
             comics
         }
     }
 }
+
 
 export default Index

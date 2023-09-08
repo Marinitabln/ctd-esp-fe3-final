@@ -32,6 +32,9 @@ export interface Comic {
   characters: Characters;
   stories: Stories;
   events: Characters;
+  price?: number;
+  oldPrice?: number;
+  stock?: number;
 }
 
 /* export interface Data {

@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { FaqsType } from 'dh-marvel/components/faqs/faqsData';
-import { getFaqs } from 'dh-marvel/services/faqs/getFaqs';
+import { getFaqs } from 'dh-marvel/services/faqs/faqs.service';
 
 interface Props {
   faqs: FaqsType[]
 }
 
-const PreguntasFrecuentes: NextPage<Props> = ({ faqs }) => {
+const PreguntasFrecuentesPage: NextPage<Props> = ({ faqs }) => {
   return (
     <>
       <Head>
@@ -54,4 +54,4 @@ export const getStaticProps:GetStaticProps = async () => {
   }
 }
 
-export default PreguntasFrecuentes
+export default PreguntasFrecuentesPage

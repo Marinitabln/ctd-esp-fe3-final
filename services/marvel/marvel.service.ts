@@ -1,5 +1,4 @@
 import {generateAuthenticationString} from "dh-marvel/services/marvel/marvel-auth.service";
-import { Comic } from "interfaces/comic";
 
 const MARVEL_API_URL = process.env.MARVEL_API_URL;
 
@@ -41,3 +40,4 @@ export const getCharacter = async (characterId: number) => {
     if (results.length > 0) return results[0];
     else return null;
 }
+
