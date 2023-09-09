@@ -5,9 +5,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
 import StepperCheckout from 'dh-marvel/components/checkout/StepperCheckout';
 import { Grid } from '@mui/material';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
+import { Comic } from 'interfaces/comic';
 
 
-const CheckoutPage = () => {
+interface Props {
+    comic: Comic;
+}
+
+const CheckoutPage:NextPage<Props> = ({comic}) => {
 
 	const [step, setStep] = useState(1)
 
@@ -43,5 +50,28 @@ const CheckoutPage = () => {
 
 }
 
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const id = parseInt(params?.id as string);
+	const comic = await getComic(id);
+   
+	return {
+		props: {
+			comic
+		},
+		revalidate: 60 * 60 * 24 //en 24hs hace la actualización
+	}
+}
+export const getStaticPaths: GetStaticPaths = async () => {
+
+	const data = await getComics();
+	const paths = data.data.results.map((comic: Comic) => ({ params: { id: comic.id.toString() }}))
+
+	return {
+		paths,
+		fallback: 'blocking',
+	};
+}
+
 
 export default CheckoutPage
+
