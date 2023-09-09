@@ -6,7 +6,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
 const StepperCheckout = ()=> {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -56,20 +56,20 @@ const StepperCheckout = ()=> {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
             optional?: React.ReactNode;
           } = {};
-          if (isStepOptional(index)) {
+        /*   if (isStepOptional(index)) {
             labelProps.optional = (
               <Typography variant="caption">Optional</Typography>
             );
           }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
-          }
+          } */
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
@@ -80,7 +80,7 @@ const StepperCheckout = ()=> {
       {activeStep === steps.length ? (
         <>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
+            Proceso de compra finalizado exitosamente
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
@@ -100,13 +100,13 @@ const StepperCheckout = ()=> {
               Volver
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
+           {/*  {isStepOptional(activeStep) && (
               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                 Salir
               </Button>
-            )}
+            )} */}
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finalizado' : 'Siguiente'}
+              {activeStep === steps.length - 1 ? 'Enviar' : 'Siguiente'}
             </Button>
           </Box>
         </React.Fragment>
