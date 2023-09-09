@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography';
@@ -19,8 +19,20 @@ const CheckoutPage = () => {
 	}
 
 	return (
-		<StepperCheckout />
-		
+		<Paper 
+		sx={{
+			p: 2,
+			margin: 'auto',
+			maxWidth: 800,
+			flexGrow: 1,
+			backgroundColor: (theme) =>
+			  theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+		  }}>
+			
+			<StepperCheckout />
+		</Paper>
+
+
 	);
 
 }

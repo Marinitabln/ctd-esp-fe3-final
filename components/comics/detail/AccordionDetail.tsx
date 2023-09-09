@@ -56,7 +56,7 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
                         {comic.creators.items.map((creator, i) => {
-                            return (<li key={i}>{creator.name}</li>)
+                            return (<li key={creator.name}>{creator.name}</li>)
                         })}
                     </Typography>
                 </AccordionDetails>
