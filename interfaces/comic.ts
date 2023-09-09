@@ -21,11 +21,8 @@ export interface Comic {
   title: string;
   description: string;
   pageCount: number;
-  urls: URL[];
   series: Series;
-  variants: any[];
-  collections: Series[];
-  collectedIssues: any[];
+  textObjects: TextObject[];
   thumbnail: Thumbnail;
   images: Thumbnail[];
   creators: Characters;
@@ -37,49 +34,34 @@ export interface Comic {
   stock?: number;
 }
 
-/* export interface Data {
-    id: number;
-    digitalId: number;
-    title: string;
-    issueNumber: number;
-    variantDescription: string;
-    description: string;
-    modified: string;
-    isbn: string;
-    upc: string;
-    diamondCode: string;
-    ean: string;
-    issn: string;
-    format: string;
-    pageCount: number;
-    textObjects: TextObject[];
-    resourceURI: string;
-    urls: URL[];
-    series: Series;
-    variants: any[];
-    collections: Series[];
-    collectedIssues: any[];
-    dates: DateElement[];
-    prices: Price[];
-    thumbnail: Thumbnail;
-    images: Thumbnail[];
-    creators: Characters;
-    characters: Characters;
-    stories: Stories;
-    events: Characters;
-  } */
-
 export interface Characters {
   available: number;
   collectionURI: string;
-  items: Series[];
+  items: Character[];
   returned: number;
+}
+
+export interface Character {
+  id:          number;
+  name:        string;
+  description: string;
+  thumbnail:   Thumbnail;
+  resourceURI: string;
+  comics:      ComicsCharacter;
+}
+
+export interface ComicsCharacter{
+    available: number;
+    collectionURI: string;
+    items: Series[];
+    returned: number;
 }
 
 export interface Series {
   resourceURI: string;
   name: string;
 }
+
 
 export interface DateElement {
   type: string;

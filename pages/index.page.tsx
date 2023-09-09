@@ -17,11 +17,11 @@ const itemsPerPage = 12;
 const Index: NextPage<Props> = ({ comics }) => {
 
 
-    const comicsTotal = comics?.data.total
+    const comicsTotal: number = comics?.data.total
     const router = useRouter();
     const [currentPage, setCurrentPage] = useState<number | null>(1);
 
-    const [noOfPages] = useState(Math.ceil(comicsTotal / itemsPerPage));
+    const noOfPages = Math.ceil(comicsTotal / itemsPerPage);
    
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value);
@@ -33,7 +33,7 @@ const Index: NextPage<Props> = ({ comics }) => {
 
     useEffect(() => {
         if (currentPage !== null) {
-            router.push(`/?page=${currentPage}`);
+            router?.push(`/?page=${currentPage}`);
         }
     }, [currentPage]);
 

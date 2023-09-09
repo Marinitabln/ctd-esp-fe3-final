@@ -15,8 +15,7 @@ interface Props {
 const ComicPage: NextPage<Props> = ({ comic }) => {
 
     const {query} = useRouter()
-
-    console.log(query);
+  //  console.log(query);
     
     return (
         <>
@@ -38,9 +37,7 @@ const ComicPage: NextPage<Props> = ({ comic }) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = parseInt(params?.id as string);
 	const comic = await getComic(id);
-
-    console.log({comic});
-    
+   
 	return {
 		props: {
 			comic

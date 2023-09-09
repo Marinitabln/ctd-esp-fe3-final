@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Comic } from 'interfaces/comic';
+import Link from 'next/link';
 
 interface Props {
     comic: Comic
@@ -22,8 +23,8 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                     <Typography>Descripción</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        {comic.description}
+                    <Typography variant='body2' color={'gray'}>
+                        {comic.textObjects[0].text}
                     </Typography>
                 </AccordionDetails>
             </Accordion>
@@ -36,9 +37,10 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                     <Typography>Personajes</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Typography variant='body2' color={'gray'}>
-                        {comic.characters.items.map((character) => {
-                            return `${character.name}, `
+                    <Typography variant='body2' color={'gray'}>
+                        {comic.characters.items.map((character, i) => {
+                            const id: string | undefined = character.resourceURI.split("/").pop()
+                            return (<li key={i}><Link href={`/personajes/${id}`}>{character.name}</Link></li>)
                         })}
                     </Typography>
                 </AccordionDetails>
@@ -54,7 +56,7 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
                         {comic.creators.items.map((creator) => {
-                            return `${creator.name}, `
+                            return (<li>{creator.name}</li>)
                         })}
                     </Typography>
                 </AccordionDetails>
