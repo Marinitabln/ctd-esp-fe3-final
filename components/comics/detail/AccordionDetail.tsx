@@ -24,7 +24,7 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {comic.textObjects[0].text}
+                        {comic?.textObjects[0].text}
                     </Typography>
                 </AccordionDetails>
             </Accordion>
@@ -38,7 +38,7 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {comic.characters.items.map((character, i) => {
+                        {comic?.characters.items.map((character, i) => {
                             const id: string | undefined = character.resourceURI.split("/").pop()
                             return (<li key={i}><Link href={`/personajes/${id}`}>{character.name}</Link></li>)
                         })}
@@ -55,7 +55,7 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {comic.creators.items.map((creator, i) => {
+                        {comic?.creators.items.map((creator, i) => {
                             return (<li key={creator.name}>{creator.name}</li>)
                         })}
                     </Typography>
