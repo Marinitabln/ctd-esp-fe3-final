@@ -24,8 +24,10 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                    {/*     {comic?.textObjects[0].text} */}
-                        {comic?.description}
+                        {/*     {comic?.textObjects[0].text} */}
+                        {comic?.description !== '' ? comic?.description
+                            :
+                            'No hay información disponible'}
                     </Typography>
                 </AccordionDetails>
             </Accordion>
@@ -39,10 +41,13 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {comic?.characters.items.map((character, i) => {
-                            const id: string | undefined = character.resourceURI.split("/").pop()
-                            return (<li key={i}><Link href={`/personajes/${id}`}>{character.name}</Link></li>)
-                        })}
+                        {comic?.characters.items.length > 0 ?
+                            comic?.characters.items.map((character, i) => {
+                                const id: string | undefined = character.resourceURI.split("/").pop()
+                                return (<li key={i}><Link href={`/personajes/${id}`}>{character.name}</Link></li>)
+                            })
+                            :
+                            'No hay información disponible'}
                     </Typography>
                 </AccordionDetails>
             </Accordion>

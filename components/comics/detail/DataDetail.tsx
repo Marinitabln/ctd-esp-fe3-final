@@ -16,7 +16,7 @@ const DataDetail: FC<Props> = ({comic}) => {
                 {comic?.series.name}
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
-                {comic?.series.name}
+                {comic?.title}
             </Typography>
             <Typography variant="body2" gutterBottom sx={{ color: 'gray' }}>
                 {comic?.stock !== 0 ? `Stock disponible: ${comic?.stock} unid` : 'Sin stock'}
