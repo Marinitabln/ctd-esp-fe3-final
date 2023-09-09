@@ -24,7 +24,8 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {comic?.textObjects[0].text}
+                    {/*     {comic?.textObjects[0].text} */}
+                        {comic?.description}
                     </Typography>
                 </AccordionDetails>
             </Accordion>
