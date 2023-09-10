@@ -61,9 +61,12 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {comic?.creators.items.map((creator, i) => {
-                            return (<li key={creator.name}>{creator.name}</li>)
-                        })}
+                        {comic?.creators.items.length > 0 ?
+                            comic.creators.items.map((creator, i) => {
+                                return (<li key={creator.name}>{creator.name}</li>)
+                            })
+                            :
+                            'No hay información disponible'}
                     </Typography>
                 </AccordionDetails>
             </Accordion>

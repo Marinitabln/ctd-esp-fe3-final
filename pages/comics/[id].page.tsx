@@ -1,6 +1,6 @@
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import { Comic } from 'interfaces/comic';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head';
 import React from 'react'
 import { Container } from '@mui/material';
@@ -34,7 +34,23 @@ const ComicPage: NextPage<Props> = ({ comic }) => {
     )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, res }) => {
+    const id = parseInt(params?.id as string);
+	const comic = await getComic(id);    
+
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=10, stale-while-revalidate=59'
+      )
+   
+	return {
+		props: {
+			comic
+		},
+	}
+}
+
+/* export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = parseInt(params?.id as string);
 	const comic = await getComic(id);
    
@@ -54,7 +70,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		paths,
 		fallback: 'blocking',
 	};
-}
+} */
 
 
 export default ComicPage

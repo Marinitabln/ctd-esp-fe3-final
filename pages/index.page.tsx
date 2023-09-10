@@ -1,4 +1,4 @@
-import type { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics} from 'dh-marvel/services/marvel/marvel.service';
