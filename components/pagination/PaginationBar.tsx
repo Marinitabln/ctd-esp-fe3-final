@@ -1,33 +1,16 @@
 import { Pagination, Box } from '@mui/material';
-import { Comics } from 'interfaces/comic';
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router';
+import {  SetStateAction, Dispatch } from 'react'
+
 
 
 interface Props {
-   comics: Comics,
-   itemsPerPage: number
+  noOfPages: number,
+  currentPage: number | null,
+  setCurrentPage: Dispatch<SetStateAction<number | null>>
 }
 
+const PaginationBar = ({ noOfPages, currentPage, setCurrentPage }: Props) => {
 
-const PaginationBar = ({ comics, itemsPerPage }: Props) => {
-
-    const comicsTotal: number = comics?.data.total
-    const router = useRouter();
-    const [currentPage, setCurrentPage] = useState<number | null>(1);
-
-    const noOfPages = Math.ceil(comicsTotal / itemsPerPage);
-   
-    useEffect(() => {
-        localStorage.clear();
-    }, []);
-
-    useEffect(() => {
-        if (currentPage !== null) {
-            router?.push(`/?page=${currentPage}`);
-        }
-    }, [currentPage]);
-  
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value);
     };

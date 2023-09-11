@@ -17,7 +17,23 @@ const itemsPerPage = 12;
 
 const Index: NextPage<Props> = ({ comics }) => {
 
-    return (
+    const comicsTotal: number = comics?.data.total
+    const router = useRouter();
+    const [currentPage, setCurrentPage] = useState<number | null>(1);
+
+    const noOfPages = Math.ceil(comicsTotal / itemsPerPage);
+   
+    useEffect(() => {
+        localStorage.clear();
+    }, []);
+
+    useEffect(() => {
+        if (currentPage !== null) {
+            router?.push(`/?page=${currentPage}`);
+        }
+    }, [currentPage]);
+  
+   return (
         <>
             <Head>
                 <title>DH Marvel</title>
@@ -26,9 +42,9 @@ const Index: NextPage<Props> = ({ comics }) => {
             </Head>
             <BodySingle title={"Comics Marvel"}>
                 <Container maxWidth="lg" sx={{ marginTop: '20px', marginBottom: '50px' }}>
-                    <PaginationBar comics={comics} itemsPerPage={itemsPerPage} />
+                    <PaginationBar noOfPages={noOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                     <ComicsGrid comics={comics} />
-                    <PaginationBar comics={comics} itemsPerPage={itemsPerPage} />
+                    <PaginationBar noOfPages={noOfPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                 </Container>
             </BodySingle>
         </>
