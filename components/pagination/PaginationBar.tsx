@@ -1,39 +1,48 @@
 import { Pagination, Box } from '@mui/material';
-import { useState } from 'react'
+import { Comics } from 'interfaces/comic';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
+
 
 interface Props {
-    page: string | string[],
-    comicsTotal: number
+   comics: Comics,
+   itemsPerPage: number
 }
 
-const PaginationBar = ({ page, comicsTotal }: Props) => {
-/*     const pages = Array.from({ length: 1 }, (_, i) => {
-        const pageNumber = Number(page);
-        return i - (pageNumber === 1 ? 0 : 1) + pageNumber;
-    });
- */
-const [pageNumber, setPageNumber]= useState(Number(page))
-    
-    const itemsPerPage = 12;
-    const [noOfPages] = useState(Math.ceil(comicsTotal / itemsPerPage));
 
+const PaginationBar = ({ comics, itemsPerPage }: Props) => {
+
+    const comicsTotal: number = comics?.data.total
+    const router = useRouter();
+    const [currentPage, setCurrentPage] = useState<number | null>(1);
+
+    const noOfPages = Math.ceil(comicsTotal / itemsPerPage);
+   
+    useEffect(() => {
+        localStorage.clear();
+    }, []);
+
+    useEffect(() => {
+        if (currentPage !== null) {
+            router?.push(`/?page=${currentPage}`);
+        }
+    }, [currentPage]);
+  
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPageNumber(value);
+        setCurrentPage(value);
     };
 
     return (
         <Box component="span">
-           {/*  {pages.map((p) => ( */}
-                <Pagination
-                    count={noOfPages}
-                    page={Number(page)}
-                    onChange={handleChange}
-                    defaultPage={1}
-                    showFirstButton
-                    showLastButton
-                    sx={{ margin: '20px' }}
-                />
-        {/*     ))} */}
+            <Pagination
+                count={noOfPages}
+                page={currentPage ? currentPage : 1}
+                onChange={handleChange}
+                defaultPage={1}
+                showFirstButton
+                showLastButton
+                sx={{ margin: '20px' }}
+            />
         </Box>
     )
 }
