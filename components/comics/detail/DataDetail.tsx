@@ -13,7 +13,7 @@ const DataDetail: FC<Props> = ({comic}) => {
     return (
         <Grid item xs>
             <Typography gutterBottom variant="subtitle2" component="div">
-                {comic?.series.name}
+                {`Serie: ${comic?.series.name}`}
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
                 {comic?.title}
@@ -30,7 +30,7 @@ const DataDetail: FC<Props> = ({comic}) => {
             {comic?.stock !== 0 ?
                 <Button variant='contained' size="large" href={`/checkout/${comic.id}`} sx={{ marginTop: '20px' }}>Comprar</Button>
                 :
-                <Button variant='outlined' size="large" sx={{ marginTop: '20px' }} disabled >Comprar</Button>}
+                <Button variant='contained' size="large" sx={{ marginTop: '20px' }} disabled >Comprar</Button>}
         </Grid>
     )
 }

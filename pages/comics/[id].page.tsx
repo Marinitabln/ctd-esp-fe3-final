@@ -4,8 +4,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head';
 import React from 'react'
 import { Container } from '@mui/material';
-import { getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
-import { useRouter } from 'next/router';
+import { getComic} from 'dh-marvel/services/marvel/marvel.service';;
 import ComicDetail from 'dh-marvel/components/comics/detail/ComicDetail';
 
 interface Props {
@@ -13,9 +12,6 @@ interface Props {
 }
 
 const ComicPage: NextPage<Props> = ({ comic }) => {
-
-    const {query} = useRouter()
-  //  console.log(query);
     
     return (
         <>

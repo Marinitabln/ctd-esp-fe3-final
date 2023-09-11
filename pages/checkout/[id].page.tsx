@@ -2,15 +2,18 @@ import { useState } from 'react'
 
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import Card from '@mui/material/Card'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import StepperCheckout from 'dh-marvel/components/checkout/StepperCheckout';
+import FormStepperCheckout from 'dh-marvel/components/checkout/FormStepperCheckout';
 import { Grid } from '@mui/material';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { Comic } from 'interfaces/comic';
 import ImageDetail from 'dh-marvel/components/comics/detail/ImageDetail';
+import { schema } from "rules";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider, useForm } from "react-hook-form";
+import * as yup from "yup";
 
 
 interface Props {
@@ -18,6 +21,13 @@ interface Props {
 }
 
 const CheckoutPage: NextPage<Props> = ({ comic }) => {
+
+	type DataForm = yup.InferType<typeof schema>;
+
+	const method = useForm<DataForm>({
+		resolver: yupResolver(schema),
+		defaultValues: {},
+	});
 
 	return (
 		<Container>
@@ -37,8 +47,9 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
 								backgroundColor: (theme) =>
 									theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
 							}}>
-
-							<StepperCheckout />
+							<FormProvider {...method}>
+								<FormStepperCheckout />
+							</FormProvider>
 						</Paper>
 					</Grid>
 				</Grid>
@@ -51,6 +62,9 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const id = parseInt(params?.id as string);
 	const comic = await getComic(id);
+
+	console.log({ comic });
+
 
 	return {
 		props: {
