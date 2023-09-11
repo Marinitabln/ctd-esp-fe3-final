@@ -34,7 +34,7 @@ const PreguntasFrecuentesPage: NextPage<Props> = ({ faqs }) => {
               <Typography>{faq.question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
+              <Typography variant='body2' color={'gray'}>
                 {faq.answer}
               </Typography>
             </AccordionDetails>
