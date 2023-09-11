@@ -39,11 +39,9 @@ const Index: NextPage<Props> = ({ comics }) => {
 export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
 
     const { page } = query
-    // console.log({page});
 
     const offset = itemsPerPage * Number(page) - itemsPerPage
     const comics = await getComics(offset, itemsPerPage)
-    // console.log({ comics });
 
     res.setHeader(
         'Cache-Control',
