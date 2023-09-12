@@ -50,12 +50,10 @@ const StepperCheckout = () => {
     const { handleSubmit } = useFormContext();
 
     const handlerPersonalData = (data: any) => {
-        console.log(`dataPersonal ${hasErrors}`);
         if (hasErrors) {
             setData({ ...data, personalData: data })
             setHasErrors(false)
         }
-
     }
 
     const handlerDeliveryAddress = (data: any) => {
@@ -63,8 +61,10 @@ const StepperCheckout = () => {
     }
 
     const handlerPaymentData = (data: any) => {
-        setData({ ...data, paymentData: data })
+        setData({ ...data, paymentData: data }) 
+
     }
+
 
     const handleNext = () => {
         if (!hasErrors) {
@@ -82,10 +82,22 @@ const StepperCheckout = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const onSubmit = async (data: any) => {
-        const fetch = await postCheckOut(data)
+    const onSubmit = async ( data: any) => {
+       
+        if (!hasErrors) {
+            return
+        } else {
+            activeStep === 0 && handlerPersonalData(data)
+            activeStep === 1 && handlerDeliveryAddress(data)
+            activeStep === 2 && handlerPaymentData(data)
+        }
+
+      /*   const fetch = await postCheckOut(data)
         console.log(fetch)
         console.log(data);
+         router.push({
+          pathname: "/confirmacion-compra",
+        }) */
     }
 
     return (

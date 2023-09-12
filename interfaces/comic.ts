@@ -9,10 +9,10 @@ export interface Comics {
 }
 
 export interface DataClass {
-  offset:  number;
-  limit:   number;
-  total:   number;
-  count:   number;
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
   results: Comic[];
 }
 
@@ -25,7 +25,7 @@ export interface Comic {
   textObjects: TextObject[];
   thumbnail: Thumbnail;
   images: Thumbnail[];
-  creators: Characters;
+  creators: Creators;
   characters: Characters;
   stories: Stories;
   events: Characters;
@@ -42,26 +42,38 @@ export interface Characters {
 }
 
 export interface Character {
-  id:          number;
-  name:        string;
+  id: number;
+  name: string;
   description: string;
-  thumbnail:   Thumbnail;
+  thumbnail: Thumbnail;
   resourceURI: string;
-  comics:      ComicsCharacter;
+  comics: ComicsCharacter;
 }
 
-export interface ComicsCharacter{
-    available: number;
-    collectionURI: string;
-    items: Series[];
-    returned: number;
+export interface Creators {
+  available: number;
+  collectionURI: string;
+  items: Creator[];
+  returned: number;
+}
+
+export interface Creator {
+  name: string;
+  resourceURI: string;
+  role?: string;
+}
+
+export interface ComicsCharacter {
+  available: number;
+  collectionURI: string;
+  items: Series[];
+  returned: number;
 }
 
 export interface Series {
   resourceURI: string;
   name: string;
 }
-
 
 export interface DateElement {
   type: string;
