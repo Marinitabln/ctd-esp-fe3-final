@@ -5,7 +5,7 @@ export const theme = createTheme({
     typography: {
         fontFamily: 'Roboto, sans-serif'
     },
- /*    palette: {
+  /*   palette: {
         primary: {
           main: '#556cd6',
         },

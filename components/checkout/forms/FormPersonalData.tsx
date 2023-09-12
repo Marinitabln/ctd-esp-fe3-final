@@ -1,12 +1,25 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import InputController from './InputController'
-import { Typography } from '@mui/material';
 
 
-const FormPersonalData = () => {
+interface Props {
+    setHasErrors: (value: boolean) => void
+}
+
+const FormPersonalData = ({ setHasErrors }: Props) => {
 
     const { control, formState: { errors } } = useFormContext();
+
+    const queTrae = !!Object.keys(errors).length
+    console.log({queTrae});
+    
+
+    useEffect(() => {
+        console.log(errors.name, errors.lastName, errors.email);
+        setHasErrors(!!Object.keys(errors).length);
+    }, [errors.name, errors.lastName, errors.email]);
+
 
     return (
         <>
@@ -16,11 +29,7 @@ const FormPersonalData = () => {
                 type='text'
                 control={control}
                 error={errors.name ? true : false}
-               /*  message={errors.name?.message} */ />
-            
-           {/*  <Typography variant="caption" color="red">
-                {errors.name?.message}
-			</Typography> */}
+                message={errors.name?.message as string} />
 
             <InputController
                 name='lastName'
@@ -28,7 +37,7 @@ const FormPersonalData = () => {
                 type='text'
                 control={control}
                 error={errors.lastName ? true : false}
-               /*  message={errors.lastName?.message} */ />
+                message={errors.lastName?.message as string} />
 
             <InputController
                 name='email'
@@ -36,7 +45,7 @@ const FormPersonalData = () => {
                 type='email'
                 control={control}
                 error={errors.email ? true : false}
-              /*   message={errors.email?.message} */ />
+                message={errors.email?.message as string} />
         </>
     )
 }

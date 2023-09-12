@@ -1,9 +1,8 @@
-import { useState } from 'react'
-
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
+import Divider from '@mui/material/Divider'
 import FormStepperCheckout from 'dh-marvel/components/checkout/FormStepperCheckout';
 import { Grid } from '@mui/material';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -14,6 +13,7 @@ import { schema } from "rules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
+import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 
 
 interface Props {
@@ -34,8 +34,21 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
 			<Box margin={5}>
 				<Grid container spacing={2} >
 					<Grid item xs={12} sm={4} >
-						<ImageDetail comic={comic} />
-						<Typography>{comic.title}</Typography>
+						<Paper
+							sx={{
+								p: 3,
+								margin: 'auto',
+								maxWidth: 600,
+								flexGrow: 1,
+								backgroundColor: (theme) =>
+									theme.palette.mode === 'dark' ? '#1A2027' : '#dcdcdc',
+							}}>
+							<ImageDetail comic={comic} />
+							<Divider sx={{ margin: '15px' }} />
+							<Typography>{comic.title}</Typography>
+							<Divider sx={{ margin: '15px' }} />
+							<Typography variant='body2'>Total a pagar: ${comic.price}</Typography>
+						</Paper>
 					</Grid>
 					<Grid item xs={12} sm={8}>
 						<Paper
@@ -58,13 +71,11 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
 	);
 
 }
+(CheckoutPage as any).Layout = LayoutCheckout;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const id = parseInt(params?.id as string);
 	const comic = await getComic(id);
-
-	console.log({ comic });
-
 
 	return {
 		props: {

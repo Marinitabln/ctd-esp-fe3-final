@@ -1,5 +1,4 @@
 import React from 'react'
-import Paper from '@mui/material/Paper'
 import InputController from './InputController';
 import { useFormContext } from 'react-hook-form';
 
@@ -16,11 +15,7 @@ const FormDeliveryAddress = () => {
                 type='text'
                 control={control}
                 error={errors.address ? true : false}
-               /*  message={errors.address?.message} */ />
-
-            {/*  <Typography variant="caption" color="red">
-                {errors.address?.message}
-			</Typography> */}
+                message={errors.address?.message as string} />
 
             <InputController
                 name='apartment'
@@ -28,7 +23,7 @@ const FormDeliveryAddress = () => {
                 type='text'
                 control={control}
                 error={errors.apartment ? true : false}
-               /*  message={errors.apartment?.message} */ />
+                message={errors.apartment?.message as string} />
 
             <InputController
                 name='city'
@@ -36,7 +31,7 @@ const FormDeliveryAddress = () => {
                 type='text'
                 control={control}
                 error={errors.city ? true : false}
-              /*   message={errors.city?.message} */ />
+                message={errors.city?.message as string} />
 
             <InputController
                 name='state'
@@ -44,7 +39,7 @@ const FormDeliveryAddress = () => {
                 type='text'
                 control={control}
                 error={errors.state ? true : false}
-              /*   message={errors.state?.message} */ />
+                message={errors.state?.message as string} />
 
             <InputController
                 name='zipCode'
@@ -52,7 +47,7 @@ const FormDeliveryAddress = () => {
                 type='text'
                 control={control}
                 error={errors.zipCode ? true : false}
-              /*   message={errors.zipCode?.message} */ />
+                message={errors.zipCode?.message as string} />
         </>
     )
 }

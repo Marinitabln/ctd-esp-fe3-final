@@ -40,15 +40,22 @@ const StepperCheckout = () => {
 
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState(defaultValues)
+    const [hasErrors, setHasErrors] = useState(false)
 
-    const { handleSubmit, formState: { errors }  } = useFormContext();
+    console.log({ hasErrors });
 
-    console.log({errors});
-    
+    console.log({ data });
+
+
+    const { handleSubmit } = useFormContext();
 
     const handlerPersonalData = (data: any) => {
-        setData({ ...data, personalData: data })
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        console.log(`dataPersonal ${hasErrors}`);
+        if (hasErrors) {
+            setData({ ...data, personalData: data })
+            setHasErrors(false)
+        }
+
     }
 
     const handlerDeliveryAddress = (data: any) => {
@@ -60,20 +67,26 @@ const StepperCheckout = () => {
     }
 
     const handleNext = () => {
-        
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (!hasErrors) {
+            return
+        } else {
+            activeStep === 0 && handlerPersonalData(data)
+            activeStep === 1 && handlerDeliveryAddress(data)
+            activeStep === 2 && handlerPaymentData(data)
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const onSubmit = (data: any) => {          
-        activeStep === 0 && handlerPersonalData(data)
-        activeStep === 1 && handlerDeliveryAddress(data)
-        activeStep === 2 && handlerPaymentData(data)
-         //console.log(data);        
-     }
+    const onSubmit = async (data: any) => {
+        const fetch = await postCheckOut(data)
+        console.log(fetch)
+        console.log(data);
+    }
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -107,7 +120,7 @@ const StepperCheckout = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {activeStep === 0 && <>
                             <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                            <FormPersonalData />
+                            <FormPersonalData setHasErrors={setHasErrors} />
                         </>}
                         {activeStep === 1 && <>
                             <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
@@ -124,8 +137,7 @@ const StepperCheckout = () => {
                                 disabled={activeStep === 0}
                                 onClick={handleBack}
                                 sx={{ mr: 1 }}
-                            >
-                                Volver
+                            >Volver
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
                             <Button onClick={handleNext} type='submit'>
@@ -140,4 +152,8 @@ const StepperCheckout = () => {
 }
 
 export default StepperCheckout
+
+function postCheckOut(data: any) {
+    throw new Error('Function not implemented.');
+}
 

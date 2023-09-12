@@ -13,11 +13,7 @@ const FormPaymentData = () => {
                 type='text'
                 control={control}
                 error={errors.creditCardNumber ? true : false}
-               /*  message={errors.creditCardNumber?.message} */ />
-
-            {/*  <Typography variant="caption" color="red">
-                {errors.creditCardNumber?.message}
-			</Typography> */}
+                message={errors.creditCardNumber?.message as string} />
 
             <InputController
                 name='cardHolderName'
@@ -25,7 +21,7 @@ const FormPaymentData = () => {
                 type='text'
                 control={control}
                 error={errors.cardHolderName ? true : false}
-               /*  message={errors.cardHolderName?.message} */ />
+               message={errors.cardHolderName?.message as string}/>
 
             <InputController
                 name='expirationDate'
@@ -33,15 +29,15 @@ const FormPaymentData = () => {
                 type='text'
                 control={control}
                 error={errors.expirationDate ? true : false}
-              /*   message={errors.expirationDate?.message} */ />
+                message={errors.expirationDate?.message as string} />
 
             <InputController
                 name='securityCode'
-                label='Código de seguridad'
+                label='CVC'
                 type='pass'
                 control={control}
                 error={errors.securityCode ? true : false}
-              /*   message={errors.securityCode?.message} */ />
+                message={errors.securityCode?.message as string} />
         </>
     )
 }
