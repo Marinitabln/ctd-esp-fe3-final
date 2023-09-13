@@ -34,6 +34,12 @@ export interface Comic {
   stock?: number;
 }
 
+export interface IComicData {
+	comicImage:string,
+	comicTitle:string,
+	comicPrice: number | undefined
+}
+
 export interface Characters {
   available: number;
   collectionURI: string;

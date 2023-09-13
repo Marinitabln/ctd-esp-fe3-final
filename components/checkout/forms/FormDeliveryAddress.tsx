@@ -1,14 +1,22 @@
 import React from 'react'
 import InputController from './InputController';
 import { useFormContext } from 'react-hook-form';
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
 
 
-const FormDeliveryAddress = () => {
+interface Props {
+    handlerDeliveryAddress: (data: any) => void
+}
 
-    const { control, formState: { errors } } = useFormContext();
+const FormDeliveryAddress = ({ handlerDeliveryAddress }: Props) => {
+
+   // const { control, formState: { errors }, handleSubmit } = useForm();
+
+    const { control, formState: { errors }, handleSubmit } = useFormContext();
 
     return (
-        <>
+        <form onSubmit={handleSubmit(handlerDeliveryAddress)}>
             <InputController
                 name='address'
                 label='Dirección'
@@ -48,7 +56,11 @@ const FormDeliveryAddress = () => {
                 control={control}
                 error={errors.zipCode ? true : false}
                 message={errors.zipCode?.message as string} />
-        </>
+
+            <Box display={'flex'} justifyContent={'end'} position={'relative'} bottom={'-38px'}>
+                <Button type='submit' >Siguiente</Button>
+            </Box>
+        </form>
     )
 }
 

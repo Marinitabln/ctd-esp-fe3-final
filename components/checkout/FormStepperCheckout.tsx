@@ -10,6 +10,9 @@ import FormPersonalData from './forms/FormPersonalData';
 import FormDeliveryAddress from './forms/FormDeliveryAddress';
 import FormPaymentData from './forms/FormPaymentData';
 import { useFormContext } from "react-hook-form";
+import { IComicData } from 'interfaces/comic';
+import { postCheckout } from 'dh-marvel/services/checkout/checkout.service';
+import { useRouter } from 'next/router';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
@@ -32,73 +35,59 @@ const defaultValues = {
         cardHolderName: '',
         expirationDate: '',
         securityCode: ''
+    },
+    orderData: {
+        comicImage: '',
+        comicTitle: '',
+        comicPrice: 0
     }
 }
 
+interface Props {
+    orderData: IComicData
+}
 
-const StepperCheckout = () => {
+const StepperCheckout = ({ orderData }: Props) => {
 
     const [activeStep, setActiveStep] = useState(0);
     const [data, setData] = useState(defaultValues)
-    const [hasErrors, setHasErrors] = useState(false)
+    const router = useRouter()
 
-    console.log({ hasErrors });
+    // const {handleSubmit} = useFormContext()
 
     console.log({ data });
 
-
-    const { handleSubmit } = useFormContext();
-
     const handlerPersonalData = (data: any) => {
-        if (hasErrors) {
-            setData({ ...data, personalData: data })
-            setHasErrors(false)
-        }
+        setData({ ...data, personalData: data })
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
 
     const handlerDeliveryAddress = (data: any) => {
         setData({ ...data, deliveryAddress: data })
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
 
     const handlerPaymentData = (data: any) => {
-        setData({ ...data, paymentData: data }) 
+        console.log(data);
+
+        //TODO: verificar que el objeto llega completo, hacer fetch y redireccionar (middleware)
+        setData({ ...data, paymentData: data })
+        setData({ ...data, orderData: orderData })
+
+        const response = postCheckout(data)
+        response.then((res) => {
+            if (res.ok) {
+                router.push( "/confirmacion-compra")
+                localStorage.setItem('checkout', 'pago-exitoso')
+            }
+
+        })
 
     }
-
-
-    const handleNext = () => {
-        if (!hasErrors) {
-            return
-        } else {
-            activeStep === 0 && handlerPersonalData(data)
-            activeStep === 1 && handlerDeliveryAddress(data)
-            activeStep === 2 && handlerPaymentData(data)
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        }
-
-    };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
-    const onSubmit = async ( data: any) => {
-       
-        if (!hasErrors) {
-            return
-        } else {
-            activeStep === 0 && handlerPersonalData(data)
-            activeStep === 1 && handlerDeliveryAddress(data)
-            activeStep === 2 && handlerPaymentData(data)
-        }
-
-      /*   const fetch = await postCheckOut(data)
-        console.log(fetch)
-        console.log(data);
-         router.push({
-          pathname: "/confirmacion-compra",
-        }) */
-    }
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -128,22 +117,19 @@ const StepperCheckout = () => {
                         backgroundColor: (theme) =>
                             theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                     }}>
-
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {activeStep === 0 && <>
+                  {/*   <form > */}
+                        <Box> {activeStep === 0 && <>
                             <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                            <FormPersonalData setHasErrors={setHasErrors} />
+                            <FormPersonalData /* handleSubmit={handleSubmit} */ handlerPersonalData={handlerPersonalData} />
                         </>}
-                        {activeStep === 1 && <>
-                            <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                            <FormDeliveryAddress />
-                        </>}
-                        {activeStep === 2 && <>
-                            <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                            <FormPaymentData />
-                        </>}
-
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                            {activeStep === 1 && <>
+                                <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
+                                <FormDeliveryAddress /* handleSubmit={handleSubmit} */ handlerDeliveryAddress={handlerDeliveryAddress} />
+                            </>}
+                            {activeStep === 2 && <>
+                                <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
+                                <FormPaymentData /* handleSubmit={handleSubmit} */ handlerPaymentData={handlerPaymentData} />
+                            </>}
                             <Button
                                 color="inherit"
                                 disabled={activeStep === 0}
@@ -151,12 +137,8 @@ const StepperCheckout = () => {
                                 sx={{ mr: 1 }}
                             >Volver
                             </Button>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleNext} type='submit'>
-                                {activeStep === steps.length - 1 ? 'Enviar' : 'Siguiente'}
-                            </Button>
                         </Box>
-                    </form>
+                 {/*    </form> */}
                 </Paper>
             </Box>
         </Box>
@@ -165,7 +147,4 @@ const StepperCheckout = () => {
 
 export default StepperCheckout
 
-function postCheckOut(data: any) {
-    throw new Error('Function not implemented.');
-}
 

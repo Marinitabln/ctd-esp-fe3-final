@@ -1,26 +1,34 @@
+import { useEffect, useState } from 'react'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid';
 import FormStepperCheckout from 'dh-marvel/components/checkout/FormStepperCheckout';
-import { Grid } from '@mui/material';
+import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
+import ImageDetail from 'dh-marvel/components/comics/detail/ImageDetail';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
-import { Comic } from 'interfaces/comic';
-import ImageDetail from 'dh-marvel/components/comics/detail/ImageDetail';
+import { Comic, IComicData } from 'interfaces/comic';
 import { schema } from "rules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
-import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 
 
 interface Props {
 	comic: Comic;
 }
 
+
 const CheckoutPage: NextPage<Props> = ({ comic }) => {
+
+	const [comicData, setComicData] = useState<IComicData>({
+		comicImage:'',
+		comicTitle:'',
+		comicPrice: 0
+	})
 
 	type DataForm = yup.InferType<typeof schema>;
 
@@ -28,6 +36,16 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
 		resolver: yupResolver(schema),
 		defaultValues: {},
 	});
+
+	useEffect (()=>{
+		if(comic){
+			setComicData({
+				comicImage: `${comic.images[0].path}.${comic.images[0].extension}`,
+				comicTitle: comic.title,
+				comicPrice: comic.price 
+			})
+		}
+	},[comic])
 
 	return (
 		<Container>
@@ -61,7 +79,7 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
 									theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
 							}}>
 							<FormProvider {...method}>
-								<FormStepperCheckout />
+								<FormStepperCheckout orderData={comicData}/>
 							</FormProvider>
 						</Paper>
 					</Grid>
@@ -81,7 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 		props: {
 			comic
 		},
-		revalidate: 60 * 60 * 24 //en 24hs hace la actualización
+		revalidate: 60
 	}
 }
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -1,4 +1,31 @@
 export type CheckoutInput = {
+    personalData: {
+        name: string,
+        lastName: string,
+        email: string
+    },
+    deliveryAddress: {
+        address: string,
+        apartment: string | null,
+        city: string,
+        state: string,
+        zipCode: string
+    },
+    paymentData: {
+        creditCardNumber: string,
+        cardHolderName: string,
+        expirationDate: string,
+        securityCode: string
+    },
+    orderData: {        
+        comicTitle: string,
+        comicImage: string,
+        comicPrice: number | undefined
+    }
+}
+
+
+/* export type CheckoutInput = {
     customer: {
         name: string,
         lastname: string,
@@ -22,4 +49,4 @@ export type CheckoutInput = {
         image: string;
         price: number;
     }
-}
+} */
