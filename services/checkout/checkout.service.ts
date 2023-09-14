@@ -1,4 +1,5 @@
 import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
+import { useRouter } from "next/router";
 
 export const postCheckout = async (data: CheckoutInput)=>{
 
@@ -15,3 +16,5 @@ export const postCheckout = async (data: CheckoutInput)=>{
 
     return await response.json()
 }
+
+

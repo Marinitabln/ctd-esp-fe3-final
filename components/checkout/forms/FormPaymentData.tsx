@@ -1,7 +1,9 @@
-import { useFormContext } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import InputController from './InputController';
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import { schemaPaymentData } from 'rules';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface Props {
     handlerPaymentData: (data: any) => void
@@ -10,12 +12,17 @@ interface Props {
 
 const FormPaymentData = ({ handlerPaymentData }: Props) => {
 
-    //const { control, formState: { errors }, handleSubmit } = useForm();
-    const { control, formState: { errors }, handleSubmit } = useFormContext();
+    const { control, formState: { errors }, handleSubmit } = useForm({
+        resolver: yupResolver(schemaPaymentData)
+    });
+
+    const onSubmit: SubmitHandler<any> = (data) => {
+        handlerPaymentData(data)
+    }
 
     return (
 
-        <form onSubmit={handleSubmit(handlerPaymentData)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <InputController
                 name='creditCardNumber'
                 label='Numero de tarjeta'

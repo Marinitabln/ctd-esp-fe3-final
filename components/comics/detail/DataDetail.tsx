@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Comic } from 'interfaces/comic';
+import { useRouter } from 'next/router';
 
 
 interface Props {
@@ -10,6 +11,14 @@ interface Props {
   }
 
 const DataDetail: FC<Props> = ({comic}) => {
+
+    const router = useRouter()
+
+    const handlePathCheckout = ()=>{   
+      router.push(`/checkout?comicId=${comic.id}`)
+    }
+    
+
     return (
         <Grid item xs>
             <Typography gutterBottom variant="subtitle2" component="div">
@@ -28,7 +37,7 @@ const DataDetail: FC<Props> = ({comic}) => {
                 {`$${comic?.price}`}
             </Typography>
             {comic?.stock !== 0 ?
-                <Button variant='contained' size="large" href={`/checkout/${comic.id}`} sx={{ marginTop: '20px' }}>Comprar</Button>
+                <Button variant='contained' size="large" onClick={handlePathCheckout} sx={{ marginTop: '20px' }}>Comprar</Button>
                 :
                 <Button variant='contained' size="large" sx={{ marginTop: '20px' }} disabled >Comprar</Button>}
         </Grid>

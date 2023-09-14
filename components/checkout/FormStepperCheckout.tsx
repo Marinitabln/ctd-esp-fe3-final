@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import FormPersonalData from './forms/FormPersonalData';
 import FormDeliveryAddress from './forms/FormDeliveryAddress';
 import FormPaymentData from './forms/FormPaymentData';
-import { useFormContext } from "react-hook-form";
 import { IComicData } from 'interfaces/comic';
 import { postCheckout } from 'dh-marvel/services/checkout/checkout.service';
 import { useRouter } from 'next/router';
@@ -50,39 +49,34 @@ interface Props {
 const StepperCheckout = ({ orderData }: Props) => {
 
     const [activeStep, setActiveStep] = useState(0);
-    const [data, setData] = useState(defaultValues)
+    const [dataForm, setDataForm] = useState(defaultValues)
     const router = useRouter()
 
-    // const {handleSubmit} = useFormContext()
 
-    console.log({ data });
+    console.log({ dataForm });
 
     const handlerPersonalData = (data: any) => {
-        setData({ ...data, personalData: data })
+        setDataForm({...dataForm, personalData: data })
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
 
     const handlerDeliveryAddress = (data: any) => {
-        setData({ ...data, deliveryAddress: data })
+        setDataForm({ ...dataForm, deliveryAddress: data })
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
 
     const handlerPaymentData = (data: any) => {
-        console.log(data);
-
         //TODO: verificar que el objeto llega completo, hacer fetch y redireccionar (middleware)
-        setData({ ...data, paymentData: data })
-        setData({ ...data, orderData: orderData })
+        setDataForm({ ...dataForm, paymentData: data })
+       setDataForm({ ...dataForm, orderData: orderData })
 
         const response = postCheckout(data)
         response.then((res) => {
             if (res.ok) {
-                router.push( "/confirmacion-compra")
                 localStorage.setItem('checkout', 'pago-exitoso')
+                router.push("/confirmacion-compra")
             }
-
         })
-
     }
 
     const handleBack = () => {
@@ -117,28 +111,26 @@ const StepperCheckout = ({ orderData }: Props) => {
                         backgroundColor: (theme) =>
                             theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                     }}>
-                  {/*   <form > */}
-                        <Box> {activeStep === 0 && <>
+                    <Box> {activeStep === 0 && <>
+                        <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
+                        <FormPersonalData handlerPersonalData={handlerPersonalData} />
+                    </>}
+                        {activeStep === 1 && <>
                             <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                            <FormPersonalData /* handleSubmit={handleSubmit} */ handlerPersonalData={handlerPersonalData} />
+                            <FormDeliveryAddress handlerDeliveryAddress={handlerDeliveryAddress} />
                         </>}
-                            {activeStep === 1 && <>
-                                <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                                <FormDeliveryAddress /* handleSubmit={handleSubmit} */ handlerDeliveryAddress={handlerDeliveryAddress} />
-                            </>}
-                            {activeStep === 2 && <>
-                                <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                                <FormPaymentData /* handleSubmit={handleSubmit} */ handlerPaymentData={handlerPaymentData} />
-                            </>}
-                            <Button
-                                color="inherit"
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                sx={{ mr: 1 }}
-                            >Volver
-                            </Button>
-                        </Box>
-                 {/*    </form> */}
+                        {activeStep === 2 && <>
+                            <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
+                            <FormPaymentData handlerPaymentData={handlerPaymentData} />
+                        </>}
+                        <Button
+                            color="inherit"
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            sx={{ mr: 1 }}
+                        >Volver
+                        </Button>
+                    </Box>
                 </Paper>
             </Box>
         </Box>

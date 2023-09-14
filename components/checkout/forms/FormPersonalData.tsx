@@ -1,28 +1,28 @@
-import { useFormContext, useForm, FieldValues, UseFormHandleSubmit } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import InputController from './InputController'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schemaPersonalData } from 'rules'
 
 interface Props {
     handlerPersonalData: (data: any) => void,
-    /* handleSubmit: UseFormHandleSubmit<FieldValues, undefined> */
+
 }
 
-const FormPersonalData = ({ handlerPersonalData/* , handleSubmit */ }: Props) => {
+const FormPersonalData = ({ handlerPersonalData }: Props) => {
 
-   const { control, formState: { errors }, handleSubmit } = useForm();
+    const { control, formState: { errors }, handleSubmit } = useForm({
+        resolver: yupResolver(schemaPersonalData)
+    });
 
-    
-
-    /*   useEffect(() => {
-         // console.log(errors.name, errors.lastName, errors.email);
-          setHasErrors(!!Object.keys(errors).length);
-      }, [errors.name, errors.lastName, errors.email]); */
-
+    const onSubmit: SubmitHandler<any> = (data) => {
+        handlerPersonalData(data)
+    }
 
     return (
 
-        <form onSubmit={handleSubmit(handlerPersonalData)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <InputController
                 name='name'
                 label='Nombre'

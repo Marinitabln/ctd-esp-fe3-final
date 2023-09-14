@@ -1,8 +1,10 @@
 import React from 'react'
 import InputController from './InputController';
-import { useFormContext } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaPeliveryAddress } from 'rules';
 
 
 interface Props {
@@ -11,12 +13,16 @@ interface Props {
 
 const FormDeliveryAddress = ({ handlerDeliveryAddress }: Props) => {
 
-   // const { control, formState: { errors }, handleSubmit } = useForm();
+    const { control, formState: { errors }, handleSubmit } = useForm({
+        resolver: yupResolver(schemaPeliveryAddress)
+    });
 
-    const { control, formState: { errors }, handleSubmit } = useFormContext();
+    const onSubmit: SubmitHandler<any> = (data) => {
+        handlerDeliveryAddress(data)
+    }
 
     return (
-        <form onSubmit={handleSubmit(handlerDeliveryAddress)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <InputController
                 name='address'
                 label='Dirección'

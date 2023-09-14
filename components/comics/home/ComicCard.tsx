@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Comic } from 'interfaces/comic';
+import { useRouter } from 'next/router';
+
 
 interface Props {
 comic: Comic,
@@ -14,6 +16,12 @@ comic: Comic,
 const ComicCard: FC<Props>  = ({comic})=>{
 
   const imagen = comic?.images[0]?.path
+
+  const router = useRouter()
+
+const handlePathCheckout = ()=>{   
+  router.push(`/checkout?comicId=${comic.id}`)
+}
 
   return (
     <Card key={comic.id} sx={{ maxWidth: 345, height: 440 }}>
@@ -29,7 +37,7 @@ const ComicCard: FC<Props>  = ({comic})=>{
       </CardContent>
       <CardActions style={{ display:'flex', justifyContent:'space-between', margin:'0 20px'}}>
         <Button variant='outlined' size="medium" href={`/comics/${comic.id}`}>Ver detalle</Button>
-        <Button variant='contained' size="medium" href={`/checkout/${comic.id}`}>Comprar</Button>
+        <Button variant='contained' size="medium" onClick={handlePathCheckout}>Comprar</Button>
       </CardActions>
     </Card>
   );

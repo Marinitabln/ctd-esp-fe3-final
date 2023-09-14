@@ -37,7 +37,7 @@ export interface Comic {
 export interface IComicData {
 	comicImage:string,
 	comicTitle:string,
-	comicPrice: number | undefined
+	comicPrice: number
 }
 
 export interface Characters {
