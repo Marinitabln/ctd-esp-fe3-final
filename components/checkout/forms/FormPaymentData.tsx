@@ -52,7 +52,7 @@ const FormPaymentData = ({ handlerPaymentData }: Props) => {
             <InputController
                 name='securityCode'
                 label='CVC'
-                type='pass'
+                type='password'
                 defaultValue=''
                 control={control}
                 error={errors.securityCode ? true : false}
