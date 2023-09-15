@@ -26,14 +26,7 @@ const CheckoutPage: NextPage = () => {
 	const router = useRouter();
 	const { comicId } = router.query;
 
-	/* type DataForm = yup.InferType<typeof schema>;
 
-	const method = useForm<DataForm>({
-		resolver: yupResolver(schema),
-		defaultValues: {},
-	}); */
-
-	/* const methods = useForm() */
 	useEffect(() => {
 
 		const id = Number(comicId);
@@ -92,9 +85,7 @@ const CheckoutPage: NextPage = () => {
 								backgroundColor: (theme) =>
 									theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
 							}}>
-							{/* <FormProvider {...method}> */}
-							{orderData && <FormStepperCheckout orderData={orderData } />}							
-							{/* </FormProvider> */}
+							{orderData && <FormStepperCheckout orderData={orderData} />}
 						</Paper>
 					</Grid>
 				</Grid>

@@ -122,11 +122,11 @@ const StepperCheckout = ({ orderData }: Props) => {
                     }}>
                     <Box> {activeStep === 0 && <>
                         <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                        <FormPersonalData handlerPersonalData={handlerPersonalData} />
+                        <FormPersonalData handlerPersonalData={handlerPersonalData} defaultValues={dataForm} />
                     </>}
                         {activeStep === 1 && <>
                             <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>
-                            <FormDeliveryAddress handlerDeliveryAddress={handlerDeliveryAddress} />
+                            <FormDeliveryAddress handlerDeliveryAddress={handlerDeliveryAddress} defaultValues={dataForm} />
                         </>}
                         {activeStep === 2 && <>
                             <Typography sx={{ mt: 2, mb: 1 }}>Paso {activeStep + 1}</Typography>

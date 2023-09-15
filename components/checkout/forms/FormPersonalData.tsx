@@ -4,13 +4,14 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaPersonalData } from 'rules'
+import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types'
 
 interface Props {
     handlerPersonalData: (data: any) => void,
-
+    defaultValues: CheckoutInput
 }
 
-const FormPersonalData = ({ handlerPersonalData }: Props) => {
+const FormPersonalData = ({ handlerPersonalData, defaultValues }: Props) => {
 
     const { control, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schemaPersonalData)
@@ -27,7 +28,7 @@ const FormPersonalData = ({ handlerPersonalData }: Props) => {
                 name='name'
                 label='Nombre'
                 type='text'
-                defaultValue=''
+                defaultValue={defaultValues.personalData.name}
                 control={control}
                 error={errors.name ? true : false}
                 message={errors.name?.message as string} />
@@ -36,7 +37,7 @@ const FormPersonalData = ({ handlerPersonalData }: Props) => {
                 name='lastName'
                 label='Apellido'
                 type='text'
-                defaultValue=''
+                defaultValue={defaultValues.personalData.lastName}
                 control={control}
                 error={errors.lastName ? true : false}
                 message={errors.lastName?.message as string} />
@@ -45,7 +46,7 @@ const FormPersonalData = ({ handlerPersonalData }: Props) => {
                 name='email'
                 label='Email'
                 type='email'
-                defaultValue=''
+                defaultValue={defaultValues.personalData.email}
                 control={control}
                 error={errors.email ? true : false}
                 message={errors.email?.message as string} />

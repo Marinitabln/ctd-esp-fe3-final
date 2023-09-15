@@ -5,13 +5,15 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaPeliveryAddress } from 'rules';
+import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types';
 
 
 interface Props {
-    handlerDeliveryAddress: (data: any) => void
+    handlerDeliveryAddress: (data: any) => void,
+    defaultValues: CheckoutInput
 }
 
-const FormDeliveryAddress = ({ handlerDeliveryAddress }: Props) => {
+const FormDeliveryAddress = ({ handlerDeliveryAddress, defaultValues }: Props) => {
 
     const { control, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schemaPeliveryAddress)
@@ -19,6 +21,7 @@ const FormDeliveryAddress = ({ handlerDeliveryAddress }: Props) => {
 
     const onSubmit: SubmitHandler<any> = (data) => {
         handlerDeliveryAddress(data)
+       
     }
 
     return (
