@@ -12,7 +12,7 @@ import { NextPage } from 'next';
 import { getComicById } from 'dh-marvel/services/marvel/marvel.service';
 import { Comic, IComicData } from 'interfaces/comic';
 import { useRouter } from 'next/router'
-import Spinner from 'dh-marvel/components/checkout/spinner/Spinner'
+import Spinner from 'dh-marvel/components/spinner/Spinner'
 
 
 

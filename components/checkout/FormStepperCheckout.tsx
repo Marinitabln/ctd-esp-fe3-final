@@ -52,9 +52,6 @@ const StepperCheckout = ({ orderData }: Props) => {
     const [dataForm, setDataForm] = useState(defaultValues)
     const router = useRouter()
 
-
-    console.log({ dataForm });
-
     const handlerPersonalData = (data: any) => {
         setDataForm({ ...dataForm, personalData: data })
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
@@ -68,11 +65,9 @@ const StepperCheckout = ({ orderData }: Props) => {
     const handlerPaymentData = (data: any) => {
      
         setDataForm({ ...dataForm, paymentData: data, orderData: orderData })
-        console.log(dataForm);
-
+  
         const response = postCheckout(dataForm)
         response.then((res) => {
-            console.log(res.data);
             if (res.data) {
                 localStorage.setItem(
                     "checkoutData",
