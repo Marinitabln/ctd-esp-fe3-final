@@ -9,7 +9,6 @@ interface Props {
     handlerPaymentData: (data: any) => void
 }
 
-
 const FormPaymentData = ({ handlerPaymentData }: Props) => {
 
     const { control, formState: { errors }, handleSubmit } = useForm({
@@ -58,7 +57,7 @@ const FormPaymentData = ({ handlerPaymentData }: Props) => {
                 control={control}
                 error={errors.securityCode ? true : false}
                 message={errors.securityCode?.message as string} />
-                
+
             <Box display={'flex'} justifyContent={'end'} position={'relative'} bottom={'-38px'}>
                 <Button type='submit' >Enviar</Button>
             </Box>
