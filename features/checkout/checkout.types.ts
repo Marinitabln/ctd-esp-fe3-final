@@ -20,7 +20,7 @@ export type CheckoutInput = {
     orderData: {        
         comicTitle: string,
         comicImage: string,
-        comicPrice: number | undefined
+        comicPrice: number
     }
 }
 

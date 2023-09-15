@@ -75,12 +75,12 @@ const ConfirmacionCompraPage: NextPage = () => {
   return (
     <Paper
       sx={{
-        p: 2,
-        margin: 'auto',
+       p: 2,
+       margin: 'auto',        
         maxWidth: 900,
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
+       flexGrow: 1,
+     /*   display: 'flex',
+        flexDirection: 'column',  */
         backgroundColor: '#CDE0CD'
       }}
     >

@@ -6,7 +6,7 @@ export const schemaPersonalData = yup
       .string()
       .required("Nombre es un campo requerido")
       .min(3, "El nombre debe tener un mínimo de 3 caracteres")
-      .max(10, "El nombre debe tener un máximo de 10 caracteres"),
+      .max(20, "El nombre debe tener un máximo de 20 caracteres"),
     lastName: yup
       .string()
       .required("Apellido es un campo requerido")
@@ -38,7 +38,9 @@ export const schemaPaymentData = yup
       .matches(/^[0-9]{16}$/, "El número de tarjeta debe ser de 16 dígitos"),
     cardHolderName: yup
       .string()
-      .required("Nombre del titular es un campo requerido"),
+      .required("Nombre del titular es un campo requerido")
+      .min(3, "El nombre debe tener un mínimo de 3 caracteres")
+      .max(20, "El nombre debe tener un máximo de 20 caracteres"),
     expirationDate: yup
       .string()
       .required("Fecha de expiración es un campo requerido"),

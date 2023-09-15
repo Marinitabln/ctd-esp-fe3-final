@@ -56,7 +56,7 @@ const StepperCheckout = ({ orderData }: Props) => {
     console.log({ dataForm });
 
     const handlerPersonalData = (data: any) => {
-        setDataForm({...dataForm, personalData: data })
+        setDataForm({ ...dataForm, personalData: data })
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
 
@@ -66,17 +66,29 @@ const StepperCheckout = ({ orderData }: Props) => {
     }
 
     const handlerPaymentData = (data: any) => {
-        //TODO: verificar que el objeto llega completo, hacer fetch y redireccionar (middleware)
-        setDataForm({ ...dataForm, paymentData: data })
-       setDataForm({ ...dataForm, orderData: orderData })
+     
+        setDataForm({ ...dataForm, paymentData: data, orderData: orderData })
+        console.log(dataForm);
 
-        const response = postCheckout(data)
+        const response = postCheckout(dataForm)
         response.then((res) => {
-            if (res.ok) {
-                localStorage.setItem('checkout', 'pago-exitoso')
+            console.log(res.data);
+            if (res.data) {
+                localStorage.setItem(
+                    "checkoutData",
+                    JSON.stringify({
+                        ...dataForm,
+                        paymentData: { ...data,  creditCardNumber: '',
+                        cardHolderName: '',
+                        expirationDate: '',
+                        securityCode: '' },
+                        orderData: orderData
+                    })
+                )
                 router.push("/confirmacion-compra")
-            }
+            };
         })
+        
     }
 
     const handleBack = () => {
