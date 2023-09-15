@@ -52,6 +52,9 @@ const StepperCheckout = ({ orderData }: Props) => {
     const [dataForm, setDataForm] = useState(defaultValues)
     const router = useRouter()
 
+    console.log({dataForm});
+    
+
     const handlerPersonalData = (data: any) => {
         setDataForm({ ...dataForm, personalData: data })
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
@@ -82,8 +85,7 @@ const StepperCheckout = ({ orderData }: Props) => {
                 )
                 router.push("/confirmacion-compra")
             };
-        })
-        
+        })        
     }
 
     const handleBack = () => {

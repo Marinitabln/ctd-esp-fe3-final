@@ -13,6 +13,7 @@ import { getComicById } from 'dh-marvel/services/marvel/marvel.service';
 import { Comic, IComicData } from 'interfaces/comic';
 import { useRouter } from 'next/router'
 import Spinner from 'dh-marvel/components/spinner/Spinner'
+import { FormProvider } from 'react-hook-form'
 
 
 
@@ -32,6 +33,7 @@ const CheckoutPage: NextPage = () => {
 		defaultValues: {},
 	}); */
 
+	/* const methods = useForm() */
 	useEffect(() => {
 
 		const id = Number(comicId);
