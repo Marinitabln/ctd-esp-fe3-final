@@ -10,32 +10,30 @@ import { useRouter } from 'next/router';
 
 
 interface Props {
-comic: Comic,
+  comic: Comic,
 }
 
-const ComicCard: FC<Props>  = ({comic})=>{
-
-  const imagen = comic?.images[0]?.path
+const ComicCard: FC<Props> = ({ comic }) => {
 
   const router = useRouter()
 
-const handlePathCheckout = ()=>{   
-  router.push(`/checkout?comicId=${comic.id}`)
-}
+  const handlePathCheckout = () => {
+    router.push(`/checkout?comicId=${comic.id}`)
+  }
 
   return (
     <Card key={comic.id} sx={{ maxWidth: 345, height: 440 }}>
-      <CardMedia        
+      <CardMedia
         sx={{ height: 200 }}
-       image={comic.images[0] ? `${comic?.images[0]?.path}.${comic?.images[0]?.extension}`: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' }
-       title={comic.title}
+        image={comic.images[0] ? `${comic?.images[0]?.path}.${comic?.images[0]?.extension}` : 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'}
+        title={comic.title}
       />
-      <CardContent  sx={{ height: 160 }}>
+      <CardContent sx={{ height: 160 }}>
         <Typography gutterBottom variant="h5" component="div">
           {comic.title}
         </Typography>
       </CardContent>
-      <CardActions style={{ display:'flex', justifyContent:'space-between', margin:'0 20px'}}>
+      <CardActions style={{ display: 'flex', justifyContent: 'space-between', margin: '0 20px' }}>
         <Button variant='outlined' size="medium" href={`/comics/${comic.id}`}>Ver detalle</Button>
         <Button variant='contained' size="medium" onClick={handlePathCheckout}>Comprar</Button>
       </CardActions>

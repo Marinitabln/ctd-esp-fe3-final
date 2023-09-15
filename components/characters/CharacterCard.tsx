@@ -5,8 +5,6 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import ComicsCharacter from './ComicsCharacter'
-
 
 
 interface Props {
@@ -17,7 +15,7 @@ const CharacterCard: FC<Props> = ({ character }) => {
   return (
 
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6} margin={'auto'}>
+      <Grid item xs={12} md={6} margin={'auto'} display={'flex'} justifyContent={'center'}>
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             component="img"
@@ -36,9 +34,11 @@ const CharacterCard: FC<Props> = ({ character }) => {
         </Card>
 
       </Grid>
-      <Grid item xs={12} md={6}>
+      
+     {/*  TODO: Mostrar 6 comics en los que el personaje aparece 
+     <Grid item xs={12} md={6}>
         <ComicsCharacter character={character} />
-      </Grid>
+      </Grid> */}
     </Grid>
 
   )

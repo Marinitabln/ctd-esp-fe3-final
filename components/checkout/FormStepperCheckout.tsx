@@ -50,10 +50,7 @@ const StepperCheckout = ({ orderData }: Props) => {
 
     const [activeStep, setActiveStep] = useState(0);
     const [dataForm, setDataForm] = useState(defaultValues)
-    const router = useRouter()
-
-    console.log({dataForm});
-    
+    const router = useRouter()  
 
     const handlerPersonalData = (data: any) => {
         setDataForm({ ...dataForm, personalData: data })

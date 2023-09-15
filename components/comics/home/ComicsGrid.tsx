@@ -14,7 +14,6 @@ const comicsArray = comics?.data.results
 
   return (
     <Grid container spacing={2}>
-    {/* {comicsArray?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((comic) => (*/} 
           {comicsArray?.map((comic) => (
          <Grid item xs={12} sm={6} md={4} key={comic.id}>
              <ComicCard comic={comic} />

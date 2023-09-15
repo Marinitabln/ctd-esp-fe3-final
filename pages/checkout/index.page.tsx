@@ -28,9 +28,7 @@ const CheckoutPage: NextPage = () => {
 
 
 	useEffect(() => {
-
 		const id = Number(comicId);
-
 		if (comicId) {
 			getComicById(id).then((comic) => {
 				setComicData(comic)
@@ -45,7 +43,6 @@ const CheckoutPage: NextPage = () => {
 			router.push('/')
 		}
 	}, [comicId, router])
-
 
 	return (
 		<Container>

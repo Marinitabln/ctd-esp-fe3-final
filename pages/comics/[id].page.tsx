@@ -36,37 +36,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res }) =>
 
     res.setHeader(
         'Cache-Control',
-        'public, s-maxage=10, stale-while-revalidate=59'
-      )
-   
+        'public, s-maxage=10, stale-while-revalidate'
+      )   
 	return {
 		props: {
 			comic
 		},
 	}
 }
-
-/* export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const id = parseInt(params?.id as string);
-	const comic = await getComic(id);
-   
-	return {
-		props: {
-			comic
-		},
-		revalidate: 60 * 60 * 24 //en 24hs hace la actualización
-	}
-}
-export const getStaticPaths: GetStaticPaths = async () => {
-
-	const data = await getComics();
-	const paths = data.data.results.map((comic: Comic) => ({ params: { id: comic.id.toString() }}))
-
-	return {
-		paths,
-		fallback: 'blocking',
-	};
-} */
 
 
 export default ComicPage

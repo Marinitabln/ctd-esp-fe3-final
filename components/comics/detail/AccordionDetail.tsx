@@ -24,7 +24,6 @@ const AccordionDetail: FC<Props> = ({ comic }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography variant='body2' color={'gray'}>
-                        {/*     {comic?.textObjects[0].text} */}
                         {comic?.description !== '' ? comic?.description
                             :
                             'No hay información disponible'}

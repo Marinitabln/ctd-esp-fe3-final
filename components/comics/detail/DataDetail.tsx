@@ -18,7 +18,6 @@ const DataDetail: FC<Props> = ({comic}) => {
       router.push(`/checkout?comicId=${comic.id}`)
     }
     
-
     return (
         <Grid item xs>
             <Typography gutterBottom variant="subtitle2" component="div">

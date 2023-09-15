@@ -6,7 +6,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { FaqsType } from 'dh-marvel/components/faqs/faqsData';
 import { getFaqs } from 'dh-marvel/services/faqs/faqs.service';
 

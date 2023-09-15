@@ -1,7 +1,7 @@
 import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import ImageDetailOK from 'dh-marvel/components/comics/detail/ImageDetailOK';
+import ImageDetailOK from 'dh-marvel/components/checkout/ImageCheckout';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';

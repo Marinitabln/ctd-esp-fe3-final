@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         props: {
             character
         },
-        revalidate: 60 * 60
+        revalidate: 60 * 60 * 24
     }
 }
 export const getStaticPaths: GetStaticPaths = async () => {

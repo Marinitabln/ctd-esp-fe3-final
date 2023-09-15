@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState} from 'react'
 import Typography from '@mui/material/Typography';
 import { Character, Comic, Comics } from 'interfaces/comic';
 import Box from '@mui/material/Box'
@@ -35,12 +35,7 @@ const ComicsCharacter: FC<Props> = ({ character }) => {
             {arrayComics?.data.results.map((comic : Comic) => {
                 return (<li key={comic.id}><ComicCard comic={comic} /></li>)
             })}
-
-
         </Box>
-
-
-
     )
 }
 

@@ -2,8 +2,8 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
-import { Comics, Comic } from 'interfaces/comic';
-import { Container, Pagination, Box } from '@mui/material';
+import { Comics} from 'interfaces/comic';
+import { Container} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ComicsGrid from 'dh-marvel/components/comics/home/ComicsGrid';

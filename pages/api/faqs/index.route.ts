@@ -12,6 +12,5 @@ export default function handler(
     res.status(200).json(faqsData);
   } else {
     res.status(400).json({ message: "Método no permitido" });
-  }
-  
+  }  
 }
