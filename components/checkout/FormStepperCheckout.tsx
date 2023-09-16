@@ -65,8 +65,13 @@ const StepperCheckout = ({ orderData }: Props) => {
     const handlerPaymentData = (data: any) => {
      
         setDataForm({ ...dataForm, paymentData: data, orderData: orderData })
+
+        const dataCheckout = {
+            ...dataForm, 
+            paymentData: {...data}
+        }
   
-        const response = postCheckout(dataForm)
+        const response = postCheckout(dataCheckout)
         response.then((res) => {
             if (res.data) {
                 localStorage.setItem(
